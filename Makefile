@@ -17,12 +17,16 @@ download.gcc:
 	wget https://developer.arm.com/-/media/Files/downloads/gnu-a/10.3-2021.07/binrel/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.tar.xz
 	tar -xvf gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.tar.xz
 
-build.linux:linux
+cfg.linux:
 	make -C linux ARCH=arm64 defconfig CROSS_COMPILE=$(CROSS_COMPILE)
+
+build.linux:linux
 	make -C linux  ARCH=arm64 -j 24 Image CROSS_COMPILE=$(CROSS_COMPILE)  Image dtbs
+	
+cfg.boot:boot-wrapper-aarch64
+	cd boot-wrapper-aarch64 &&  autoreconf -i
 
 build.boot:boot-wrapper-aarch64
-	cd boot-wrapper-aarch64 &&  autoreconf -i
 	cd boot-wrapper-aarch64 && ./configure --enable-psci --enable-gicv3 \
 		--with-kernel-dir=../linux \
 		--with-dtb=../linux/arch/arm64/boot/dts/arm/fvp-base-revc.dtb \
@@ -38,6 +42,7 @@ build.rootfs:
 run:
 	Base_RevC_AEMvA_pkg/models/Linux64_GCC-6.4/FVP_Base_RevC-2xAEMvA \
 		-C cluster0.NUM_CORES=4 -C cluster1.NUM_CORES=4  \
+		-C cluster0.has_arm_v8-3=1 -C cluster1.has_arm_v8-3=1 \
 		-C cache_state_modelled=0 \
 		-C pctl.startup=0.0.0.0 \
 		-C bp.secure_memory=false \
