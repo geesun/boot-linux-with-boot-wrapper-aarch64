@@ -43,6 +43,8 @@ run:
 	Base_RevC_AEMvA_pkg/models/Linux64_GCC-6.4/FVP_Base_RevC-2xAEMvA \
 		-C cluster0.NUM_CORES=4 -C cluster1.NUM_CORES=4  \
 		-C cluster0.has_arm_v8-3=1 -C cluster1.has_arm_v8-3=1 \
+		-C cluster0.has_arm_v8-5=1 -C cluster1.has_arm_v8-5=1 \
+		-C cluster0.has_branch_target_exception=1 -C cluster1.has_branch_target_exception=1 \
 		-C cache_state_modelled=0 \
 		-C pctl.startup=0.0.0.0 \
 		-C bp.secure_memory=false \

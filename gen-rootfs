@@ -1,6 +1,6 @@
 BLOCK_SIZE=512
 SEC_PER_MB=$((1024*2))
-EXT3_SIZE_MB=200
+EXT3_SIZE_MB=500
 PART_START=$((1*SEC_PER_MB))
 EXT3_SIZE=$((EXT3_SIZE_MB*SEC_PER_MB))
 IMG_BB=../grub-busybox.img
@@ -12,10 +12,6 @@ cat part_table > $IMG_BB
 
 dd if=/dev/zero of=ext3_part bs=$BLOCK_SIZE count=$EXT3_SIZE
 mkdir -p mnt
-#umount if it has been mounted
-if [[ $(findmnt -M "mnt") ]]; then
-    fusermount -u mnt
-fi
 
 mkfs.ext3 -F ext3_part
 
