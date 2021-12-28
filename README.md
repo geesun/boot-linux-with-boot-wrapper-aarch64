@@ -2,19 +2,53 @@
 Boot Linux Kernel with boot-wrapper-aarch64 with Arm FVP Base_RevC_AEMvA
 
 ## Download
-make download.fvp     # Download FVP 
-make download.gcc     # Download toolchain
-make download.linux   # Download the Linux source
-make download.boot    # Download the boot-wrapper-aarch64 source
+### Download FVP 
+```
+make download.fvp    
+```
+### Download toolchain
+```
+make download.gcc     
+```
 
-## Configure 
-make cfg.linux        # Configure linux kernel 
-make cfg.boot         # Congigure boot-wrapper-aarch64
+### Download the Linux source
+```
+make download.linux   
+```
+
+### Download the boot-wrapper-aarch64 source
+```
+make download.boot    
+```
+
+## Configure
+### Configure linux kernel 
+```
+make cfg.linux        
+```
+
+### Congigure boot-wrapper-aarch64
+```
+make cfg.boot         
+```
 
 ## Build 
-make build.linux      # Build Linux kernel 
-make build.boot       # Build boot-wrapper-aarch64
-make build.rootfs     # Build the rootfs 
+### Build Linux kernel 
+```
+make build.linux      
+```
+
+### Build boot-wrapper-aarch64
+```
+make build.boot       
+```
+
+### Build the rootfs 
+```
+make build.rootfs     
+```
 
 ## Run FVP 
-make run              # Run FVP 
+```
+make run              
+```
