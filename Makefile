@@ -3,7 +3,7 @@ TOOLS_DIR 		:= $(shell pwd)/tools
 CROSS_COMPILE 	:= $(TOOLS_DIR)/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
 CC 				:= $(CROSS_COMPILE)gcc
 LD 				:= $(CROSS_COMPILE)ld
-FVP_BASE_DIR 	:= $(TOOLS_DIR)/Base_RevC_AEMvA_pkg/models/Linux64_GCC-9.3/FVP_Base_RevC-2xAEMvA
+FVP_BASE 	:= $(TOOLS_DIR)/Base_RevC_AEMvA_pkg/models/Linux64_GCC-9.3/FVP_Base_RevC-2xAEMvA
 LINUX_AXF 		:= $(SRC_DIR)/boot-wrapper-aarch64/linux-system.axf
 GRUB_BUSYBOX_IMG := $(shell pwd)/rootfs/grub-busybox.img
 
@@ -23,7 +23,7 @@ FVP_OPTIONS 	:= \
 	-C bp.virtioblockdevice.image_path=$(GRUB_BUSYBOX_IMG) \
 	$(LINUX_AXF)
 
-DEBUG_OPTIONS 	:= $(subst \",\\",$(FVP_OPTIONS)) -I -p
+DEBUG_OPTIONS 	:= $(subst ",\",$(FVP_OPTIONS)) -I -p
 
 .PHONY: all clone download config build run debug clean fs
 
@@ -43,7 +43,7 @@ download:
 
 config: clone download
 	make -C $(SRC_DIR)/linux ARCH=arm64 defconfig CROSS_COMPILE=$(CROSS_COMPILE)
-	cd $(SRC_DIR)/boot-wrapper-aarch64 && autoreconf -I .
+	cd $(SRC_DIR)/boot-wrapper-aarch64 && autoreconf -i 
 
 build: config 
 	make -C $(SRC_DIR)/linux ARCH=arm64 -j 24 Image CROSS_COMPILE=$(CROSS_COMPILE) Image dtbs
@@ -60,7 +60,7 @@ buildfs:
 	rm -rf rootfs/tmp
 
 run:
-	$(FVP_BASE_DIR)/models/Linux64_GCC-6.4/FVP_Base_RevC-2xAEMvA $(FVP_OPTIONS)
+	$(FVP_BASE) $(FVP_OPTIONS)
 
 debug:
 	/opt/arm/developmentstudio_platinum-0.a/bin/armdbg \
