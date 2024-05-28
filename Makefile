@@ -3,7 +3,7 @@ TOOLS_DIR 		:= $(shell pwd)/tools
 CROSS_COMPILE 	:= $(TOOLS_DIR)/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
 CC 				:= $(CROSS_COMPILE)gcc
 LD 				:= $(CROSS_COMPILE)ld
-FVP_BASE 	:= $(TOOLS_DIR)/Base_RevC_AEMvA_pkg/models/Linux64_GCC-9.3/FVP_Base_RevC-2xAEMvA
+FVP_BASE 	    := $(TOOLS_DIR)/Base_RevC_AEMvA_pkg/models/Linux64_GCC-9.3/FVP_Base_RevC-2xAEMvA
 LINUX_AXF 		:= $(SRC_DIR)/boot-wrapper-aarch64/linux-system.axf
 GRUB_BUSYBOX_IMG := $(shell pwd)/rootfs/grub-busybox.img
 
